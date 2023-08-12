@@ -9,6 +9,7 @@ from django.urls import reverse_lazy, reverse
 from .forms import DogForm, ParentForm
 from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -63,6 +64,12 @@ class DogCreateView(LoginRequiredMixin, CreateView):
 class DogUpdateView(LoginRequiredMixin, UpdateView):
     model = Dog
     fields = ('name', 'category')
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user:
+            raise Http404
+        return self.object
 
     def get_success_url(self):
         return reverse('dogs:category_dogs', args=[self.object.category.pk])
