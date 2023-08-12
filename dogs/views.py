@@ -41,7 +41,7 @@ class DogListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(**kwargs)
         category_item = Category.objects.get(pk=self.kwargs.get('pk'))
-        context_data['object_list'] = Dog.objects.filter(category_id=category_item.pk)
+        context_data['object_list'] = Dog.objects.filter(category_id=category_item.pk, owner=self.request.user)
         context_data['title'] = f'Все собаки породы {category_item.name}'
 
         return context_data
