@@ -8,9 +8,10 @@ from .models import Category, Dog, Parent
 from django.urls import reverse_lazy, reverse
 from .forms import DogForm, ParentForm
 from django.forms import inlineformset_factory
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'dogs/index.html'
     extra_context = {
         'title': 'Питомник - Добро пожаловать',
@@ -22,14 +23,14 @@ class IndexView(TemplateView):
         return context_data
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
     extra_context = {
         'title': 'Питомник - Наши породы'
     }
 
 
-class DogListView(ListView):
+class DogListView(LoginRequiredMixin, ListView):
     model = Dog
 
     def get_queryset(self):
@@ -46,7 +47,7 @@ class DogListView(ListView):
         return context_data
 
 
-class DogCreateView(CreateView):
+class DogCreateView(LoginRequiredMixin, CreateView):
     model = Dog
     form_class = DogForm
     success_url = reverse_lazy('dogs:categories')
@@ -58,7 +59,8 @@ class DogCreateView(CreateView):
 
         return super().form_valid(form)
 
-class DogUpdateView(UpdateView):
+
+class DogUpdateView(LoginRequiredMixin, UpdateView):
     model = Dog
     fields = ('name', 'category')
 
@@ -84,6 +86,7 @@ class DogUpdateView(UpdateView):
             formset.save()
         return super().form_valid(form)
 
-class DogDeleteView(DeleteView):
+
+class DogDeleteView(LoginRequiredMixin, DeleteView):
     model = Dog
     success_url = reverse_lazy('dogs:categories')
