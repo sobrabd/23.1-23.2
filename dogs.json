@@ -1,0 +1,38 @@
+[
+    {
+        "model": "dogs.category",
+        "pk": 1,
+        "fields": {
+            "name": "Овчарка",
+            "description": "умная и смелая"
+        }
+    },
+    {
+        "model": "dogs.category",
+        "pk": 2,
+        "fields": {
+            "name": "Пудель",
+            "description": "кудрявый и маленький"
+        }
+    },
+    {
+        "model": "dogs.dog",
+        "pk": 1,
+        "fields": {
+            "name": "Рекс",
+            "category": 1,
+            "phot": "",
+            "birth_day": null
+        }
+    },
+    {
+        "model": "dogs.dog",
+        "pk": 2,
+        "fields": {
+            "name": "Артемон",
+            "category": 2,
+            "phot": "",
+            "birth_day": null
+        }
+    }
+]

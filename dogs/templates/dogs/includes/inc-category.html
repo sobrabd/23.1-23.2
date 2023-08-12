@@ -1,0 +1,13 @@
+<div class="col-4">
+    <div class="card shadow-sm mb-5">
+        
+        <div class="card-body">
+            <p class="card-text">{{object.name}}</p>
+            <p class="card-text">{{object.description}}</p>
+            <div class="btn-group">
+                <a href="{% url 'dogs:category_dogs' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">К собакам</a>
+            </div>
+
+        </div>
+    </div>
+</div>
